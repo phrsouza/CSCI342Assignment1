@@ -46,13 +46,13 @@ public class LTTime implements Comparable<LTTime> {
 	}
 
 	public static String parseTimeToString(long timeInMilisseconds) {
-		DateFormat formatter = new SimpleDateFormat("mm:ss.S");
+		DateFormat formatter = new SimpleDateFormat("mm:ss.SSS");
 		Calendar calendar = new GregorianCalendar().getInstance();
 		calendar.setTimeInMillis(timeInMilisseconds);
 		Log.v("teste",
 				"" + timeInMilisseconds + " Parsed to "
 						+ formatter.format(calendar.getTime()));
-		return formatter.format(timeInMilisseconds);
+		return formatter.format(timeInMilisseconds).substring(0, 7);
 	}
 
 	@Override
