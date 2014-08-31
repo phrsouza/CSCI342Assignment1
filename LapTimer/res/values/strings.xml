@@ -3,6 +3,17 @@
 
     <string name="app_name">LapTimer</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+    <string name="clear">Clear</string>
+    <string name="discard">Discard</string>
+    <string name="current">Current: </string>
+    <string name="save">Save</string>
+    <string name="initial_time">00:00.0</string>
+    <color name="light_blue">#34A0E3</color>
+    <color name="green">#52F549</color>
+    <color name="pink">#E87BDB</color>
+    <color name="blue">#3844C2</color>
+    <color name="yellow">#D6EB1A</color>
 
 </resources>
