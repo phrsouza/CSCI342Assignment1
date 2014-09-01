@@ -1,77 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/fragment_timer"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_timer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal" >
+        android:layout_gravity="center_horizontal"
+        android:text="@string/initial_time"
+        android:textSize="70sp" />
 
-<!--         <textView -->
-<!--             android:id="@+id/time" -->
-<!--             android:layout_width="0dp" -->
-<!--             android:layout_height="wrap_content" -->
-<!--             android:layout_weight="1" -->
-<!--             android:gravity="center_horizontal" -->
-<!--             android:textSize="75sp" /> -->
-        
-            <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/initial_time"
-            android:textSize="75sp" />
-            
-    </LinearLayout>
-
-	
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/start"
-            android:textSize="40sp" />
-    </LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:text="@string/start" />
 
     <LinearLayout
         android:id="@+id/bars"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="5"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textViewBest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:text="Best: " />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
+            android:layout_weight="0.25"
             android:orientation="horizontal"
             android:weightSum="100" >
 
             <LinearLayout
                 android:id="@+id/barBest"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="0"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:background="@color/green"
                 android:orientation="horizontal" >
             </LinearLayout>
@@ -87,15 +60,14 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
+            android:layout_weight="0.25"
             android:orientation="horizontal"
             android:weightSum="100" >
 
             <LinearLayout
                 android:id="@+id/barWorst"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="0"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:background="@color/pink"
                 android:orientation="horizontal" >
             </LinearLayout>
@@ -111,15 +83,15 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.25"
             android:baselineAligned="false"
             android:orientation="horizontal"
             android:weightSum="100" >
 
             <LinearLayout
                 android:id="@+id/barAverage"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="25"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:background="@color/blue"
                 android:orientation="horizontal" >
             </LinearLayout>
@@ -135,15 +107,14 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
+            android:layout_weight="0.25"
             android:orientation="horizontal"
             android:weightSum="100" >
 
             <LinearLayout
                 android:id="@+id/barCurrent"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_weight="0"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
                 android:background="@color/yellow"
                 android:orientation="horizontal" >
             </LinearLayout>
