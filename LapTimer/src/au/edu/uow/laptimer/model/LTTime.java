@@ -55,6 +55,11 @@ public class LTTime implements Comparable<LTTime> {
 		return formatter.format(timeInMilisseconds).substring(0, 7);
 	}
 
+	public static String parseDateToString(Date date) {
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yy HH:mm");
+		return formatter.format(date);
+	}
+
 	@Override
 	public int compareTo(LTTime another) {
 		return this.time.compareTo(another.getTime());

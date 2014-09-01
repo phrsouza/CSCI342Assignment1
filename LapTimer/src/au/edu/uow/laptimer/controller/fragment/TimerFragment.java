@@ -5,14 +5,16 @@ package au.edu.uow.laptimer.controller.fragment;
 
 import java.util.Date;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -20,8 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import au.edu.uow.laptimer.R;
+import au.edu.uow.laptimer.controller.activity.TimerActivity;
 import au.edu.uow.laptimer.model.LTChallenge;
 import au.edu.uow.laptimer.model.LTTime;
 
@@ -29,11 +31,12 @@ import au.edu.uow.laptimer.model.LTTime;
  * @author Pedro Henrique Ramos Souza
  * 
  */
+
 public class TimerFragment extends Fragment {
-	private LTChallenge challenge = new LTChallenge("Part 1 - Timer");
+	private LTChallenge challenge;
 	private long begin, end;
 	private Handler handler;
-
+	
 	// Views of the interface
 	public TextView time;
 	public Button button;
@@ -49,6 +52,15 @@ public class TimerFragment extends Fragment {
 
 	public TextView textCurrent;
 	public LinearLayout barCurrent;
+	
+	//Communicator
+	public interface TimerFragmentListener {
+		
+		void onViewTimes(int position);
+		
+	}
+	
+	TimerFragmentListener listener;
 
 	EditText editText;
 
@@ -57,21 +69,72 @@ public class TimerFragment extends Fragment {
 
 		@Override
 		public void run() {
-			handler.postDelayed(updateIU, 1);
-			end = System.currentTimeMillis();
-			time.setText(LTTime.parseTimeToString(end - begin));
-			textCurrent.setText(getString(R.string.current)
-					+ LTTime.parseTimeToString(System.currentTimeMillis()
-							- begin));
-			setBars();
+			try {
+
+				handler.postDelayed(updateIU, 1);
+				end = System.currentTimeMillis();
+				time.setText(LTTime.parseTimeToString(end - begin));
+				textCurrent.setText(getString(R.string.current)
+						+ LTTime.parseTimeToString(System.currentTimeMillis()
+								- begin));
+				setBars();
+			} catch (Exception e) {
+				// To avoid the program to crash when the chronometer is running
+				// and the user press back button
+				handler.removeCallbacks(updateIU);
+			}
 		}
 	};
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
+
+		// Gets the selected challenge on the main Model based on the position
+		// arg passar inside the Bundle
+		challenge = ((TimerActivity) getActivity()).getModel()
+				.challengeAtIndex(getArguments().getInt("position"));
 		return inflater.inflate(R.layout.fragment_timer, container, false);
 
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			listener = (TimerFragmentListener) activity;
+		} catch (ClassCastException e) { // The app should crash if we don't
+											// implement this interface in the
+											// Activity.
+			throw new ClassCastException(activity.toString()
+					+ " must implement FragmentListener");
+		}
+	}
+
+	// Set the visibility of the buttons in the ActionBar
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.activity_timer_menu, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+		menu.findItem(R.id.view_recorded).setVisible(true);
+		menu.findItem(R.id.new_challenge).setVisible(false);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+
+		case R.id.view_recorded:
+		//	Log.v("teste", "View Recorded in Timer");
+			int position = getArguments().getInt("position");
+			listener.onViewTimes(position);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
@@ -79,18 +142,6 @@ public class TimerFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		getActivity().setTitle(challenge.getChallengeName());
 
-		/*
-		 * TO REMOVE
-		 * 
-		 * 
-		 * 
-		 * 
-		 * TO REMOVE TO REMOVE
-		 */
-		//
-		// challenge.addTime(1000L, new Date(), "teste2");
-		// challenge.addTime(1200L, new Date(), "teste3");
-		// challenge.addTime(12000L, new Date(), "teste4");
 		begin = 0;
 		getReferences();
 		eventRegister();
@@ -174,8 +225,9 @@ public class TimerFragment extends Fragment {
 			barAverage.setLayoutParams(layoutParams);
 
 		}
-		layoutParams = (LinearLayout.LayoutParams) barCurrent
-				.getLayoutParams();
+
+		textCurrent.setText("Curret: " + getString(R.string.initial_time));
+		layoutParams = (LinearLayout.LayoutParams) barCurrent.getLayoutParams();
 		layoutParams.weight = 0;
 		barCurrent.setLayoutParams(layoutParams);
 	}
@@ -218,7 +270,7 @@ public class TimerFragment extends Fragment {
 					.getLayoutParams();
 			layoutParams.weight = current * ratio;
 			barCurrent.setLayoutParams(layoutParams);
-			
+
 			layoutParams = (LinearLayout.LayoutParams) barBest
 					.getLayoutParams();
 			layoutParams.weight = best.getTime() * ratio;
@@ -271,9 +323,7 @@ public class TimerFragment extends Fragment {
 		alert.setNegativeButton(R.string.discard,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						// Canceled.
-						Toast.makeText(getActivity(), "Time Not Saved",
-								Toast.LENGTH_SHORT);
+
 					}
 				});
 

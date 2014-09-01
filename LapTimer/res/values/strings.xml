@@ -9,6 +9,8 @@
     <string name="discard">Discard</string>
     <string name="current">Current: </string>
     <string name="challenges">Lap Timer - Challenges</string>
+    <string name="new_challenge">New</string>
+    <string name="view_recorded">View Recorded Times</string>
     <string name="save">Save</string>
     <string name="initial_time">00:00.0</string>
     <color name="light_blue">#34A0E3</color>
