@@ -42,7 +42,7 @@ public class TimerActivity extends Activity{
 		transaction.add(R.id.mainLinearLayout, new ChallengesFragment(), "challenges");
 		transaction.commit();
 		
-		// Adding a fragment to the mainLinearLayout view in the TimerActivity.
+////		 Adding a fragment to the mainLinearLayout view in the TimerActivity.
 //		manager = getFragmentManager();
 //		FragmentTransaction transaction = manager.beginTransaction();
 //		transaction.add(R.id.mainLinearLayout, new TimerFragment(), "timer");

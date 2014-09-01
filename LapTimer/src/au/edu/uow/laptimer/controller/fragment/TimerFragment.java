@@ -51,8 +51,8 @@ public class TimerFragment extends Fragment {
 	public LinearLayout barCurrent;
 
 	EditText editText;
-	
-	//Function that updates the UI Views
+
+	// Function that updates the UI Views
 	Runnable updateIU = new Runnable() {
 
 		@Override
@@ -60,8 +60,9 @@ public class TimerFragment extends Fragment {
 			handler.postDelayed(updateIU, 1);
 			end = System.currentTimeMillis();
 			time.setText(LTTime.parseTimeToString(end - begin));
-			textCurrent.setText(getString(R.string.current) + LTTime.parseTimeToString(System
-					.currentTimeMillis() - begin));
+			textCurrent.setText(getString(R.string.current)
+					+ LTTime.parseTimeToString(System.currentTimeMillis()
+							- begin));
 			setBars();
 		}
 	};
@@ -79,17 +80,17 @@ public class TimerFragment extends Fragment {
 		getActivity().setTitle(challenge.getChallengeName());
 
 		/*
-		 * TO REMOVE 
+		 * TO REMOVE
 		 * 
 		 * 
 		 * 
 		 * 
 		 * TO REMOVE TO REMOVE
 		 */
-		
-		challenge.addTime(1000L, new Date(), "teste2");
-		challenge.addTime(1200L, new Date(), "teste3");
-		challenge.addTime(12000L, new Date(), "teste4");
+		//
+		// challenge.addTime(1000L, new Date(), "teste2");
+		// challenge.addTime(1200L, new Date(), "teste3");
+		// challenge.addTime(12000L, new Date(), "teste4");
 		begin = 0;
 		getReferences();
 		eventRegister();
@@ -134,75 +135,103 @@ public class TimerFragment extends Fragment {
 
 	}
 
-	public void resetBars(){
+	public void resetBars() {
 		LinearLayout.LayoutParams layoutParams;
 		LTTime best, worst, average;
 		long current;
 		float ratio;
-		best = challenge.getBestTime();
-		worst = challenge.getWorstTime();
-		average = challenge.average();
-		current = begin == 0 ? 0 : (System.currentTimeMillis()-begin);
-		textBest.setText("Best: "+LTTime.parseTimeToString(best.getTime())+" - "+best.getComment());
-		textWorst.setText("Worst: "+LTTime.parseTimeToString(worst.getTime())+" - "+worst.getComment());
-		textAverage.setText("Average: "+LTTime.parseTimeToString(average.getTime()));
-		textCurrent.setText(getString(R.string.current)+LTTime.parseTimeToString(0));
+		if (challenge.getTimes().size() != 0) {
+			best = challenge.getBestTime();
+			worst = challenge.getWorstTime();
+			average = challenge.average();
+			current = begin == 0 ? 0 : (System.currentTimeMillis() - begin);
+			textBest.setText("Best: "
+					+ LTTime.parseTimeToString(best.getTime()) + " - "
+					+ best.getComment());
+			textWorst.setText("Worst: "
+					+ LTTime.parseTimeToString(worst.getTime()) + " - "
+					+ worst.getComment());
+			textAverage.setText("Average: "
+					+ LTTime.parseTimeToString(average.getTime()));
+			textCurrent.setText(getString(R.string.current)
+					+ LTTime.parseTimeToString(0));
 
-		
-		ratio = (100f/(float)worst.getTime());
-		//Set the bar sizes based in the worst value;
-		layoutParams = (LinearLayout.LayoutParams) barBest.getLayoutParams();
-		layoutParams.weight = best.getTime()*ratio;
-		barBest.setLayoutParams(layoutParams);
-		
-		layoutParams = (LinearLayout.LayoutParams) barWorst.getLayoutParams();
-		layoutParams.weight = ratio*worst.getTime();
-		barWorst.setLayoutParams(layoutParams);
+			ratio = (100f / (float) worst.getTime());
+			// Set the bar sizes based in the worst value;
+			layoutParams = (LinearLayout.LayoutParams) barBest
+					.getLayoutParams();
+			layoutParams.weight = best.getTime() * ratio;
+			barBest.setLayoutParams(layoutParams);
 
-		layoutParams = (LinearLayout.LayoutParams) barAverage.getLayoutParams();
-		layoutParams.weight = average.getTime()*ratio;
-		barAverage.setLayoutParams(layoutParams);
+			layoutParams = (LinearLayout.LayoutParams) barWorst
+					.getLayoutParams();
+			layoutParams.weight = ratio * worst.getTime();
+			barWorst.setLayoutParams(layoutParams);
 
-		layoutParams = (LinearLayout.LayoutParams) barCurrent.getLayoutParams();
+			layoutParams = (LinearLayout.LayoutParams) barAverage
+					.getLayoutParams();
+			layoutParams.weight = average.getTime() * ratio;
+			barAverage.setLayoutParams(layoutParams);
+
+		}
+		layoutParams = (LinearLayout.LayoutParams) barCurrent
+				.getLayoutParams();
 		layoutParams.weight = 0;
 		barCurrent.setLayoutParams(layoutParams);
 	}
-	
+
 	public void setBars() {
-		//Time not running
+		// Time not running
 		LinearLayout.LayoutParams layoutParams;
 		LTTime best, worst, average;
 		long current;
 		float ratio;
-		
-		best = challenge.getBestTime();
-		worst = challenge.getWorstTime();
-		average = challenge.average();
-		current = (end-begin);
 
-		//Check who is bigger: Worst time or Current Time
-		if (worst.getTime()>=current){
-			ratio = (100f/(float)worst.getTime());
-			//Set the bar sizes based in the worst value;
+		if (challenge.getTimes().size() != 0) {
+			best = challenge.getBestTime();
+			worst = challenge.getWorstTime();
+			average = challenge.average();
+			current = (end - begin);
+		} else {
+			best = new LTTime(0L);
+			worst = new LTTime(0L);
+			average = new LTTime(0L);
+			current = 1;
+		}
 
-			//The current is less than the worst time, then adjust the current time
-			layoutParams = (LinearLayout.LayoutParams) barCurrent.getLayoutParams();
-			layoutParams.weight = current*ratio;
+		// Check who is bigger: Worst time or Current Time
+		if (worst.getTime() >= current) {
+			ratio = (100f / (float) worst.getTime());
+			// Set the bar sizes based in the worst value;
+
+			// The current is less than the worst time, then adjust the current
+			// time
+			layoutParams = (LinearLayout.LayoutParams) barCurrent
+					.getLayoutParams();
+			layoutParams.weight = current * ratio;
 			barCurrent.setLayoutParams(layoutParams);
-		}else{
-			//Current is bigger than worst: scale down the other bars
-			ratio = (100f/(float)current);
-			//Set the bar sizes based in the current value;
-			layoutParams = (LinearLayout.LayoutParams) barBest.getLayoutParams();
-			layoutParams.weight = best.getTime()*ratio;
-			barBest.setLayoutParams(layoutParams);
+		} else {
+			// Current is bigger than worst: scale down the other bars
+			ratio = (100f / (float) current);
+			// Set the bar sizes based in the current value;
+			layoutParams = (LinearLayout.LayoutParams) barCurrent
+					.getLayoutParams();
+			layoutParams.weight = current * ratio;
+			barCurrent.setLayoutParams(layoutParams);
 			
-			layoutParams = (LinearLayout.LayoutParams) barWorst.getLayoutParams();
-			layoutParams.weight = ratio*worst.getTime();
+			layoutParams = (LinearLayout.LayoutParams) barBest
+					.getLayoutParams();
+			layoutParams.weight = best.getTime() * ratio;
+			barBest.setLayoutParams(layoutParams);
+
+			layoutParams = (LinearLayout.LayoutParams) barWorst
+					.getLayoutParams();
+			layoutParams.weight = ratio * worst.getTime();
 			barWorst.setLayoutParams(layoutParams);
 
-			layoutParams = (LinearLayout.LayoutParams) barAverage.getLayoutParams();
-			layoutParams.weight = average.getTime()*ratio;
+			layoutParams = (LinearLayout.LayoutParams) barAverage
+					.getLayoutParams();
+			layoutParams.weight = average.getTime() * ratio;
 			barAverage.setLayoutParams(layoutParams);
 		}
 	}
