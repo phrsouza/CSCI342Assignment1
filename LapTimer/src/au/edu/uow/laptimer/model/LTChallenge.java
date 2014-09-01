@@ -1,5 +1,6 @@
 package au.edu.uow.laptimer.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,7 +8,7 @@ import java.util.Date;
 
 import android.util.Log;
 
-public class LTChallenge {
+public class LTChallenge implements Serializable{
 	private String challengeName;
 	private ArrayList<LTTime> times;
 

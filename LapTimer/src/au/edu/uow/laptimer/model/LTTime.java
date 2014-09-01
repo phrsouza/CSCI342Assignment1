@@ -1,12 +1,17 @@
 package au.edu.uow.laptimer.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class LTTime implements Comparable<LTTime> {
+public class LTTime implements Comparable<LTTime>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long time; // in milliseconds
 	private Date dateRecord;
 	private String comment;

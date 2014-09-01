@@ -1,8 +1,13 @@
 package au.edu.uow.laptimer.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LTModel {
+public class LTModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<LTChallenge> challenges;
 
 	public LTModel() {

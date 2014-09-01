@@ -1,10 +1,18 @@
 package au.edu.uow.laptimer.controller.activity;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import au.edu.uow.laptimer.R;
 import au.edu.uow.laptimer.controller.fragment.ChallengesFragment;
@@ -20,6 +28,8 @@ public class TimerActivity extends Activity implements FragmentListener,
 	private FragmentManager manager;
 	private LTModel lapTimerModel;
 	private ArrayList<LTChallenge> challenges;
+	private final String FILE_NAME = "mainModel.file";
+	File file = new File(getFilesDir(), FILE_NAME);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
