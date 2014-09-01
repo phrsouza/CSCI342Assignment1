@@ -22,4 +22,11 @@ public class LTModel {
 		return this.challenges.size();
 	}
 
+	public ArrayList<String> getChallengeNames() {
+		ArrayList<String> challengeNames = new ArrayList<String>();
+		for (LTChallenge challenge : challenges) {
+			challengeNames.add(challenge.getChallengeName());
+		}
+		return challengeNames;
+	}
 }

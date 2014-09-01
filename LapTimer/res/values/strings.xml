@@ -8,6 +8,7 @@
     <string name="clear">Clear</string>
     <string name="discard">Discard</string>
     <string name="current">Current: </string>
+    <string name="challenges">Lap Timer - Challenges</string>
     <string name="save">Save</string>
     <string name="initial_time">00:00.0</string>
     <color name="light_blue">#34A0E3</color>
@@ -15,6 +16,5 @@
     <color name="pink">#E87BDB</color>
     <color name="blue">#3844C2</color>
     <color name="yellow">#D6EB1A</color>
-    <color name="B">#D6EB1A</color>
 
 </resources>
