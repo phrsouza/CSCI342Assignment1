@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import android.util.Log;
-
 public class LTTime implements Comparable<LTTime> {
 	private Long time; // in milliseconds
 	private Date dateRecord;
@@ -49,9 +47,6 @@ public class LTTime implements Comparable<LTTime> {
 		DateFormat formatter = new SimpleDateFormat("mm:ss.SSS");
 		Calendar calendar = new GregorianCalendar().getInstance();
 		calendar.setTimeInMillis(timeInMilisseconds);
-		Log.v("teste",
-				"" + timeInMilisseconds + " Parsed to "
-						+ formatter.format(calendar.getTime()));
 		return formatter.format(timeInMilisseconds).substring(0, 7);
 	}
 

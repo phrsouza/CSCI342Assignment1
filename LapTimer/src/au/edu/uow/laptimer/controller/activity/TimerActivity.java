@@ -27,38 +27,11 @@ public class TimerActivity extends Activity implements FragmentListener,
 		setContentView(R.layout.activity_timer);
 		// Instantiating the challenges array in the onCreate method
 		lapTimerModel = new LTModel();
-
-		// Adding new Challenges
-		// lapTimerModel.addChallenge("Clap 20 Times Challenge");
-		// lapTimerModel.addChallenge("Say the Alphabet Challenge");
-		// lapTimerModel.addChallenge("100 Meter Sprint Challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-		// lapTimerModel.addChallenge("Read the csci342 A1 spec challenge");
-
-		// Adding a fragment to the mainLinearLayout view in the TimerActivity.
 		manager = getFragmentManager();
 		FragmentTransaction transaction = manager.beginTransaction();
 		transaction.add(R.id.mainLinearLayout, new ChallengesFragment(),
 				"challenges");
 		transaction.commit();
-
-		// // Adding a fragment to the mainLinearLayout view in the
-		// TimerActivity.
-		// manager = getFragmentManager();
-		// FragmentTransaction transaction = manager.beginTransaction();
-		// transaction.add(R.id.mainLinearLayout, new TimerFragment(), "timer");
-		// transaction.commit();
 
 	}
 
